@@ -2745,6 +2745,9 @@ Activate by holding the key for the character you want to add an accent to, then
   <data name="QuickAccent_DisableFullscreen.Header" xml:space="preserve">
     <value>Disable when Game Mode is On</value>
   </data>
+  <data name="QuickAccent_DisableFullscreen.Description" xml:space="preserve">
+    <value>Ignore inputs when an application is in fullscreen</value>
+  </data>
   <data name="QuickAccent_Language.Header" xml:space="preserve">
     <value>Characters</value>
   </data>

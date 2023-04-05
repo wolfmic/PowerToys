@@ -124,6 +124,9 @@
                     <labs:SettingsCard x:Uid="QuickAccent_StartSelectionFromTheLeft_Indicator" HeaderIcon="{ui:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xE974;}">
                         <ToggleSwitch x:Uid="QuickAccent_StartSelectionFromTheLeft_ToggleSwitch" IsOn="{x:Bind Mode=TwoWay, Path=ViewModel.StartSelectionFromTheLeft}" />
                     </labs:SettingsCard>
+                    <labs:SettingsCard x:Uid="QuickAccent_DisableFullscreen" HeaderIcon="{ui:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xECE4;}">
+                        <ToggleSwitch x:Uid="QuickAccent_DisableFullscreen_ToggleSwitch" IsOn="{x:Bind Mode=TwoWay, Path=ViewModel.DisableFullscreen}" />
+                    </labs:SettingsCard>
                 </controls:SettingsGroup>
 
                 <controls:SettingsGroup

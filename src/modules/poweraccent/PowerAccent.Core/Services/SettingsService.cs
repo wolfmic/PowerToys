@@ -59,6 +59,8 @@ public class SettingsService
                         ExcludedApps = settings.Properties.ExcludedApps.Value;
                         _keyboardListener.UpdateExcludedApps(ExcludedApps);
 
+                        _keyboardListener.UpdateDisableScreen(settings.Properties.DisableFullscreen);
+
                         SelectedLang = Enum.TryParse(settings.Properties.SelectedLang.Value, out Language selectedLangValue) ? selectedLangValue : Language.ALL;
 
                         switch (settings.Properties.ToolbarPosition.Value)
@@ -95,6 +97,7 @@ public class SettingsService
                         ShowUnicodeDescription = settings.Properties.ShowUnicodeDescription;
                         SortByUsageFrequency = settings.Properties.SortByUsageFrequency;
                         StartSelectionFromTheLeft = settings.Properties.StartSelectionFromTheLeft;
+                        DisableFullscreen = settings.Properties.DisableFullscreen;
                     }
                 }
                 catch (Exception ex)
@@ -222,6 +225,21 @@ public class SettingsService
         set
         {
             _startSelectionFromTheLeft = value;
+        }
+    }
+
+    private bool disableFullscreen;
+
+    public bool DisableFullscreen
+    {
+        get
+        {
+            return disableFullscreen;
+        }
+
+        set
+        {
+            disableFullscreen = value;
         }
     }
 }

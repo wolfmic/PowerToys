@@ -12,7 +12,7 @@
 namespace winrt::PowerToys::PowerAccentKeyboardService::implementation
 {
     KeyboardListener::KeyboardListener() :
-        m_toolbarVisible(false), m_triggeredWithSpace(false), m_leftShiftPressed(false), m_rightShiftPressed(false)
+        m_toolbarVisible(false), m_triggeredWithSpace(false), m_leftShiftPressed(false), m_rightShiftPressed(false), m_disableFullscreen(false)
     {
         s_instance = this;
         LoggerHelpers::init_logger(L"PowerAccent", L"PowerAccentKeyboardService", "PowerAccent");
@@ -112,6 +112,35 @@ namespace winrt::PowerToys::PowerAccentKeyboardService::implementation
         }
     }
 
+    void KeyboardListener::UpdateDisableScreen(bool disableFullscreen)
+    {
+        m_disableFullscreen = disableFullscreen;
+    }
+
+    bool KeyboardListener::AreFullscreenAppExcluded()
+    {
+        if (!m_disableFullscreen)
+        {
+            return false;
+        }
+        if (HWND foregroundApp{ GetForegroundWindow() })
+        {
+            if (foregroundApp != GetDesktopWindow() && foregroundApp != GetShellWindow())
+            {
+                RECT appBounds;
+                RECT rc;
+
+                GetWindowRect(GetDesktopWindow(), &rc);
+                GetWindowRect(foregroundApp, &appBounds);
+                return (rc.left   == appBounds.left  &&
+                        rc.top    == appBounds.top   &&
+                        rc.right  == appBounds.right &&
+                        rc.bottom == appBounds.bottom);
+            }
+        }
+        return false;
+    }
+
     bool KeyboardListener::IsForegroundAppExcluded()
     {
         std::lock_guard<std::mutex> lock(m_mutex_excluded_apps);
@@ -180,7 +209,7 @@ namespace winrt::PowerToys::PowerAccentKeyboardService::implementation
             }
         }
 
-        if (!m_toolbarVisible && letterPressed != LetterKey::None && triggerPressed && !IsForegroundAppExcluded())
+        if (!m_toolbarVisible && letterPressed != LetterKey::None && triggerPressed && !IsForegroundAppExcluded() && !AreFullscreenAppExcluded())
         {
             Logger::debug(L"Show toolbar. Letter: {}, Trigger: {}", letterPressed, triggerPressed);
 

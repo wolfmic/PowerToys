@@ -38,12 +38,14 @@ namespace winrt::PowerToys::PowerAccentKeyboardService::implementation
         void UpdateActivationKey(int32_t activationKey);
         void UpdateInputTime(int32_t inputTime);
         void UpdateExcludedApps(std::wstring_view excludedApps);
+        void UpdateDisableScreen(bool disableFullscreen);
 
         static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
 
     private:
         bool OnKeyDown(KBDLLHOOKSTRUCT info) noexcept;
         bool OnKeyUp(KBDLLHOOKSTRUCT info) noexcept;
+        bool AreFullscreenAppExcluded();
         bool IsForegroundAppExcluded();
 
         static inline KeyboardListener* s_instance;
@@ -58,6 +60,7 @@ namespace winrt::PowerToys::PowerAccentKeyboardService::implementation
         spdlog::stopwatch m_stopwatch;
         bool m_leftShiftPressed;
         bool m_rightShiftPressed;
+        bool m_disableFullscreen;
 
         std::mutex m_mutex_excluded_apps;
         std::pair<HWND, bool> m_prevForegroundAppExcl{ NULL, false };

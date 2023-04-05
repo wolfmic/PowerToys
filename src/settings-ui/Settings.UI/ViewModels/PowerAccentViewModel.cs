@@ -301,6 +301,24 @@ namespace Microsoft.PowerToys.Settings.UI.ViewModels
             }
         }
 
+        public bool DisableFullscreen
+        {
+            get
+            {
+               return _powerAccentSettings.Properties.DisableFullscreen;
+            }
+
+            set
+            {
+                if (value != _powerAccentSettings.Properties.DisableFullscreen)
+                {
+                    _powerAccentSettings.Properties.DisableFullscreen = value;
+                    OnPropertyChanged(nameof(DisableFullscreen));
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             // Notify UI of property change

@@ -33,6 +33,9 @@ namespace Microsoft.PowerToys.Settings.UI.Library
         [JsonPropertyName("start_selection_from_the_left")]
         public bool StartSelectionFromTheLeft { get; set; }
 
+        [JsonPropertyName("disable_fullscreen")]
+        public bool DisableFullscreen { get; set; }
+
         public PowerAccentProperties()
         {
             ActivationKey = PowerAccentActivationKey.Both;
@@ -43,6 +46,7 @@ namespace Microsoft.PowerToys.Settings.UI.Library
             ShowUnicodeDescription = false;
             SortByUsageFrequency = false;
             StartSelectionFromTheLeft = false;
+            DisableFullscreen = false;
         }
     }
 }
